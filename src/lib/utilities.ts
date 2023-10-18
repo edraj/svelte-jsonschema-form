@@ -1,5 +1,5 @@
 import type { JSONSchema7, JSONSchema7TypeName } from "json-schema";
-import traverse from "@json-schema-tools/traverse";
+import traverse from "json-schema-traverse";
 
 export function toClasses(classObj: { [cls: string]: boolean }) {
   return Object.entries(classObj)

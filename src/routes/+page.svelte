@@ -1,14 +1,9 @@
 <script lang="ts">
   import "../theme/_custom.scss"
   import { tick } from 'svelte';
-  import TabBar from "@smui/tab-bar"
-  import Tab, { Label } from "@smui/tab"
-  import IconButton from '@smui/icon-button';
-  import Button, { Label as BtnLabel } from "@smui/button"
-  import Textfield from '@smui/textfield';
-  import Snackbar, { Label as SBLabel, Actions } from '@smui/snackbar';
   import SchemaForm, { type ValidationError } from "$lib";
   import schemas, { type TestSchema } from "../schemas";
+  import { Input, TabContent, TabPane, Button } from "sveltestrap";
 
   import type UISchema from "$lib/UISchema";
 
@@ -22,13 +17,11 @@
   let validationError: ValidationError | null = null;
 
   let schemaForm: SchemaForm;
-  let errorSnackbar: Snackbar;
 
   $: updateActive(active);
   $: setSchemaString(schema);
   $: setUISchemaString(uischema);
   $: setDataString(data);
-  $: if (validationError != null) errorSnackbar.open();
 
   async function setSchemaString(schema: TestSchema["schema"]) {
     await tick();
@@ -52,6 +45,7 @@
   }
 
   function setSchema() {
+    {schemaString}
     try {
       schema = JSON.parse(schemaString);
     } catch (error) {
@@ -85,55 +79,36 @@
 </script>
 
 <section>
-  <TabBar tabs={schemas} let:tab bind:active id="schema-select">
-    <Tab {tab}>
-      <Label>{tab.name}</Label>
-    </Tab>
-  </TabBar>
+  <TabContent id="schema-select">
+    {#each schemas as schema}
+      <TabPane tabId={schema.name} tab={schema.name}>
+        <p>{schema.name}</p>
+      </TabPane>
+    {/each}
+  </TabContent>
   <SchemaForm {schema} {uischema} bind:data bind:this={schemaForm}>
-    <Button on:click={download} type="button" variant="raised">
-      <BtnLabel>Download</BtnLabel>
+    <Button color="primary" on:click={download} type="button" variant="raised">
+      Download
     </Button>
   </SchemaForm>
-
-  <Snackbar class="schema-error" bind:this={errorSnackbar}>
-    <SBLabel>
-      {#if validationError}
-        {validationError.message}
-        <ul>
-          {#each validationError.errors as error}
-            <li>{error.message}</li>
-          {/each}
-        </ul>
-      {:else}
-        Unknown error
-      {/if}
-    </SBLabel>
-    <Actions>
-      <IconButton class="material-icons" title="Dismiss">close</IconButton>
-    </Actions>
-  </Snackbar>
 </section>
 
 <hr id="divider" />
 
 <section id="debug">
-  <Textfield
-    textarea
+  <Input type="textarea"
     bind:value={schemaString}
     on:change={setSchema}
     label="Schema"
   />
 
-  <Textfield
-    textarea
+  <Input type="textarea"
     bind:value={uischemaString}
     on:change={setUISchema}
     label="UI Schema"
   />
 
-  <Textfield
-    textarea
+  <Input type="textarea"
     bind:value={dataString}
     on:change={setData}
     label="Data"

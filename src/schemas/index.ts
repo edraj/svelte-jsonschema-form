@@ -27,15 +27,16 @@ export type TestSchema = {
 
 export default [
   {
-    name: "Simple",
-    schema: simpleSchema as JSONSchema7,
-    data: simpleData
-  },
-  {
     name: "Nested",
     schema: nestedSchema as JSONSchema7,
     data: nestedData
   },
+  {
+    name: "Simple",
+    schema: simpleSchema as JSONSchema7,
+    data: simpleData
+  },
+
   {
     name: "Arrays",
     schema: arraysSchema as JSONSchema7,

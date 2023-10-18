@@ -2,8 +2,7 @@
   import type { JSONSchema7Definition } from "json-schema";
   import { hasRequired as checkRequired, isBoolean } from "$lib/utilities";
   import UISchema from "$lib/UISchema";
-  import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
-  import IconButton, { Icon } from '@smui/icon-button';
+  import { Accordion, AccordionItem, Button, Icon } from 'sveltestrap';
   import AnyOfControl from "./AnyOfControl.svelte";
   import ObjectProps from "./ObjectProps.svelte";
 
@@ -60,34 +59,32 @@
   <AnyOfControl {title} {anyOf} type={'object'} bind:data {uischema} />
 {:else}
   <Accordion class="jsonschema-form-control control-object">
-    <Panel
+    <AccordionItem
       bind:open
       variant="unelevated"
       disabled={!enabled}
       class={(hasRequired || ignoreEmpty) ? "no-disable" : undefined}
       nonInteractive={!hasProps}
     >
-      <Header>
         {#if !hasRequired && !ignoreEmpty}
-          <IconButton type="button" toggle bind:pressed={enabled} size="button" on:click={stop}>
-            <Icon class="material-icons" on>check_box</Icon>
-            <Icon class="material-icons">check_box_outline_blank</Icon>
-          </IconButton>
+          <Button type="button" toggle bind:pressed={enabled} size="button" on:click={stop}>
+            <Icon name="check-square-fill" />
+            <Icon name="check-square" />
+          </Button>
         {/if}
         <span class="control-object-title">{title ?? ""}</span>
         <svelte:fragment slot="description">{description ?? ""}</svelte:fragment>
         <svelte:fragment slot="icon">
           {#if hasProps}
-            <IconButton type="button" toggle pressed={open} size="button">
-              <Icon class="material-icons" on>expand_less</Icon>
-              <Icon class="material-icons">expand_more</Icon>
-            </IconButton>
+            <Button type="button"toggle pressed={open} size="button">
+              <Icon class="arrows-angle-expand" />
+              <Icon class="arrows-angle-contract" />
+            </Button>
           {/if}
         </svelte:fragment>
-      </Header>
-      <Content class="jsonschema-form-controls">
+
         <ObjectProps {title} {properties} {required} {anyOf} bind:data {uischema} />
-      </Content>
-    </Panel>
+
+    </AccordionItem>
   </Accordion>
 {/if}

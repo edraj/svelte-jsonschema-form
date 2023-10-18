@@ -7,11 +7,16 @@
   import Ajv from "ajv";
   import ajvFormats from "ajv-formats";
   import mergeAllOf from "json-schema-merge-allof";
-  import Paper, { Title, Subtitle, Content } from '@smui/paper';
   import ObjectProps from "./controls/ObjectProps.svelte";
   import Control from "./Control.svelte";
   import ValidationError from "./ValidationError";
   import { isObjectSchema, isString } from './utilities';
+  import {
+    Card,
+    CardBody,
+    CardSubtitle,
+    CardTitle
+  } from 'sveltestrap';
 
   export let schema: JSONSchema7 = {};
   export let data: { [prop: string]: any } = {};
@@ -96,17 +101,17 @@
     <p>dereferencing...</p>
   {:then dereferenced}
     {#if isObjectSchema(dereferenced)}
-      <Paper>
+      <Card>
         {#if dereferenced.title}
-          <Title>{dereferenced.title}</Title>
+          <CardTitle>{dereferenced.title}</CardTitle>
         {/if}
         {#if dereferenced.description}
-          <Subtitle>{dereferenced.description}</Subtitle>
+          <CardSubtitle>{dereferenced.description}</CardSubtitle>
         {/if}
-        <Content class="jsonschema-form-controls">
+        <CardBody class="jsonschema-form-controls">
           <ObjectProps {...dereferenced} bind:data {uischema} force />
-        </Content>
-      </Paper>
+        </CardBody>
+      </Card>
     {:else}
       <Control schema={dereferenced} bind:data {uischema} force />
     {/if}

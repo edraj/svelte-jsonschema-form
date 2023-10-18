@@ -1,7 +1,6 @@
 <script lang="ts">
-  import Textfield from "@smui/textfield";
-  import HelperText from "@smui/textfield/helper-text";
-  import Select, { Option } from "@smui/select";
+
+  import {Input} from "sveltestrap";
 
   export let data: number | undefined = $$props.default;
   export let title: string | undefined = undefined;
@@ -37,20 +36,18 @@
 
 <div class="jsonschema-form-control control-integer">
   {#if enumValues?.length}
-    <Select variant="outlined" bind:value label={title} required={isRequired} menu$portal>
+    <Input  type="select" variant="outlined" bind:value label={title} required={isRequired} menu$portal feedback={description ? description : ""}>
       {#if !force}
-        <Option value={NaN}/>
+        <option value={NaN}/>
       {/if}
       {#each enumValues as enumValue}
-        <Option value={enumValue}>{enumValue}</Option>
+        <option value={enumValue}>{enumValue}</option>
       {/each}
-    </Select>
-    {#if description}
-      <HelperText persistent>{description}</HelperText>
-    {/if}
+    </Input>
   {:else}
-    <Textfield
+    <Input
       type={format ?? "number"}
+      feedback={description ? description : ""}
       variant="outlined"
       label={title}
       bind:value={value}
@@ -60,11 +57,8 @@
       required={isRequired}
     >
       <svelte:fragment slot="helper">
-        {#if description}
-          <HelperText persistent>{description}</HelperText>
-        {/if}
       </svelte:fragment>
-    </Textfield>
+    </Input>
   {/if}
 </div>
 

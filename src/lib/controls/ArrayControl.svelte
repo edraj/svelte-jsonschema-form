@@ -2,9 +2,9 @@
   import type { JSONSchema7 } from "json-schema";
   import UISchema from "$lib/UISchema";
   import { hasRequired as checkRequired, isBoolean } from "$lib/utilities";
-  import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
-  import IconButton, { Icon } from "@smui/icon-button";
   import Control from "../Control.svelte";
+  import { Button, Icon, Accordion, AccordionItem, Row } from 'sveltestrap';
+
 
   export let data: any[] | undefined = undefined;
   export let uischema: UISchema = {};
@@ -134,26 +134,25 @@
 </script>
 
 <Accordion class="jsonschema-form-control control-array">
-  <Panel bind:open variant="unelevated"  disabled={!enabled}  class={hasRequired ? "has-required" : undefined}>
-    <Header>
+  <AccordionItem  header={title ?? ""} bind:open variant="unelevated"  disabled={!enabled}  class={hasRequired ? "has-required" : undefined}>
+    <h4>
       {#if !hasRequired}
-        <IconButton type="button" toggle bind:pressed={enabled} size="button" on:click={stop}>
-          <Icon class="material-icons" on>check_box</Icon>
-          <Icon class="material-icons">check_box_outline_blank</Icon>
-        </IconButton>
+        <Button type="button" toggle bind:pressed={enabled} size="button" on:click={stop}>
+          <Icon name="check-square-fill" />
+          <Icon name="check-square" />
+        </Button>
       {/if}
-      <span class="control-array-title">{title ?? ""}</span>
-      <svelte:fragment slot="description">{description ?? ""}</svelte:fragment>
-      <div slot="icon">
+      <p>{description ?? ""}</p>
+      <div>
         {#if canAddItem}
-          <IconButton type="button" class="material-icons" on:click={headerAddItem} size="button">add</IconButton>
+          <Button type="button" class="material-icons" on:click={headerAddItem} size="button">add</Button>
         {/if}
-        <IconButton type="button" toggle pressed={open} size="button">
-          <Icon class="material-icons" on>expand_less</Icon>
-          <Icon class="material-icons">expand_more</Icon>
-        </IconButton>
+        <Button type="button" toggle pressed={open} size="button">
+          <Icon class="arrows-angle-expand" />
+          <Icon class="arrows-angle-contract" />
+        </Button>
       </div>
-    </Header>
+    </h4>
     <div class="smui-paper__content">
       <ul class="control-array-items">
         {#if data}
@@ -168,39 +167,39 @@
                 />
               </div>
               <div class="control-array-item-actions">
-                <IconButton
+                <Button
                   type="button"
                   on:click={() => moveItemUp(index)}
                   class="material-icons"
                   size="button"
                   disabled={!canMoveItemUp(index)}
-                >keyboard_arrow_up</IconButton>
+                ><Icon name="arrow-bar-up"/></Button>
                 <!-- {#if canRemoveItem(index)}
                   <Fab mini on:click={() => removeItem(index)}>
                     <Icon class="material-icons">delete</Icon>
                   </Fab>
                 {/if} -->
-                <IconButton
+                <Button
                   type="button"
                   on:click={() => removeItem(index)}
                   class="material-icons"
                   size="button"
                   disabled={!canRemoveItem(index)}
-                >delete</IconButton>
-                <IconButton
+                ><Icon name="trash-fill"/></Button>
+                <Button
                   type="button"
                   on:click={() => moveItemDown(index)}
                   class="material-icons"
                   size="button"
                   disabled={!canMoveItemDown(index)}
-                >keyboard_arrow_down</IconButton>
+                ><Icon name="arrow-bar-down"/></Button>
               </div>
             </li>
           {/each}
         {/if}
       </ul>
     </div>
-  </Panel>
+  </AccordionItem>
 </Accordion>
 
 <style>

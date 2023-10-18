@@ -4,8 +4,8 @@
   import deepEquals from "fast-deep-equal";
   import { tick } from 'svelte';
   import { isObjectSchema, omit } from "$lib/utilities";
-  import Paper, { Title, Content } from "@smui/paper";
-  import Select, { Option } from '@smui/select';
+  import { Card, Input } from 'sveltestrap';
+
   import Control from "../Control.svelte";
   import ObjectProps from "./ObjectProps.svelte";
 
@@ -71,9 +71,8 @@
   }
 </script>
 
-<Paper variant="unelevated" class="jsonschema-form-control control-anyof">
-  <Title>
-    <Select 
+<Card variant="unelevated" class="jsonschema-form-control control-anyof">
+  <Input type="select" name="select" id="exampleSelect">
       variant="outlined"
       key={getKey}
       class="control-anyof-select"
@@ -84,14 +83,13 @@
       bind:value={selected}
     >
       {#if !force}
-        <Option value={null} />
+        <option value={null} />
       {/if}
       {#each schemas as schema, index (schema)}
-        <Option value={schema}>{schema.title ?? `Option ${index + 1}` }</Option>
+        <option value={schema}>{schema.title ?? `Option ${index + 1}` }</option>
       {/each}
-    </Select>
-  </Title>
-  <Content class="jsonschema-form-controls">
+    </Input>
+  <p class="jsonschema-form-controls">
     {#if selected != null}
       {#if isObjectSchema(typeSchema)}
         <ObjectProps {...selected} bind:data {uischema} />
@@ -99,5 +97,5 @@
         <Control schema={selected} bind:data {uischema} force />
       {/if}
     {/if}
-  </Content>
-</Paper>
+  </p>
+</Card>

@@ -1,7 +1,6 @@
 <script lang="ts">
-  import FormField from "@smui/form-field";
-  import Checkbox from "@smui/checkbox";
-  import HelperText from "@smui/textfield/helper-text";
+
+  import { FormGroup, Input } from "sveltestrap";
 
   export let data: boolean | undefined = $$props.default;
   export let title: string | undefined = undefined;
@@ -30,13 +29,10 @@
 </script>
 
 <div class="jsonschema-form-control control-boolean">
-  <FormField>
-    <Checkbox bind:checked />
+  <FormGroup>
+    <Input type="checkbox" bind:checked  feedback={description ? description : ""} />
     <span slot="label">{title}</span>
-  </FormField>
-  {#if description}
-    <HelperText persistent>{description}</HelperText>
-  {/if}
+  </FormGroup>
 </div>
 
 <style>
