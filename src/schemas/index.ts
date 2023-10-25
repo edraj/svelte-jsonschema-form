@@ -20,7 +20,7 @@ import taxonomyData from "../schemas/taxonomy/data.json";
 
 export type TestSchema = {
   name: string;
-  schema: JSONSchema7Definition;
+  schema: JSONSchema7;
   uischema?: UISchema;
   data: { [prop: string]: any };
 };
