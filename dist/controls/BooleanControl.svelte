@@ -23,9 +23,8 @@ function updateChecked(val) {
 </script>
 
 <div class="jsonschema-form-control control-boolean">
-  <FormGroup>
-    <Input type="checkbox" bind:checked  feedback={description ? description : ""} />
-    <span slot="label">{title}</span>
+  <FormGroup class="d-flex">
+    <Input type="checkbox" bind:checked  feedback={description ? description : ""} /> {title}
   </FormGroup>
 </div>
 

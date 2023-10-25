@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  import {Input} from "sveltestrap";
+  import {Input, Label} from "sveltestrap";
 
   export let data: number | undefined = $$props.default;
   export let title: string | undefined = undefined;
@@ -35,6 +35,9 @@
 </script>
 
 <div class="jsonschema-form-control control-number">
+  {#if title}
+    <Label>{title}</Label>
+  {/if}
   {#if enumValues?.length}
     <Input  feedback={description ? description : ""} type="select"  variant="outlined" bind:value label={title} required={isRequired} menu$portal>
       {#if !force}

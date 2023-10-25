@@ -36,7 +36,9 @@
 </script>
 
 <div class="jsonschema-form-control control-string mb-3">
-  <Label>{title}</Label>
+  {#if title}
+    <Label>{title}</Label>
+  {/if}
   {#if enumValues?.length}
     <Input  type="select" bind:value label={title} required={isRequired} menu$portal feedback={description ? description : ""}>
       {#if !force}

@@ -139,7 +139,7 @@
   }
   const extraPrefix = {
     action: stop,
-    value: enabled
+    value: !enabled
   }
 
 </script>
@@ -151,12 +151,6 @@
                   bind:open variant="unelevated"  disabled={!enabled}
                   class={hasRequired ? "has-required" : undefined}>
     <h4>
-      {#if !hasRequired}
-        <Button type="button" toggle bind:pressed={enabled} size="button" on:click={stop}>
-          <Icon name="check-square-fill" />
-          <Icon name="check-square" />
-        </Button>
-      {/if}
       <p>{description ?? ""}</p>
       <div>
       </div>
@@ -166,7 +160,7 @@
         {#if data}
           {#each data as value, index (getKey(index))}
             <li>
-              <div class="jsonschema-form-controls">
+              <div class="">
                 <Control
                   schema={getItem(index)}
                   bind:data={value}

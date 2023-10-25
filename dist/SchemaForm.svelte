@@ -88,7 +88,7 @@ export function download(arg1, arg2) {
         {#if dereferenced.description}
           <CardSubtitle>{dereferenced.description}</CardSubtitle>
         {/if}
-        <CardBody class="jsonschema-form-controls">
+        <CardBody class="d-flex flex-column">
           <ObjectProps {...dereferenced} bind:data {uischema} force />
         </CardBody>
       </Card>

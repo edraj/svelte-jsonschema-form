@@ -25,7 +25,47 @@ export type TestSchema = {
   data: { [prop: string]: any };
 };
 
+
+const x = {
+  "type": "object",
+  "title": "MILSIM",
+  "properties": {
+    "subrole": {
+      "title": "Subrole",
+      "type": "string"
+    },
+    "rank": {
+      "title": "Rank",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50
+    },
+    "ex": {
+      "title": "EX",
+      "type": "boolean"
+    },
+    "wps": {
+      "title": "WPS",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "subrole",
+    "rank",
+    "ex",
+    "wps"
+  ]
+}
+
+
+
 export default [
+  {
+    name: "milsom", schema: x as JSONSchema7, data: {}
+  },
   {
     name: "Any Of",
     schema: <unknown>anyOfSchema as JSONSchema7,

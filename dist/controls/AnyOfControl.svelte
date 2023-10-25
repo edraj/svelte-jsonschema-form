@@ -1,7 +1,7 @@
 <script>import deepEquals from "fast-deep-equal";
 import { tick } from "svelte";
 import { isObjectSchema, omit } from "../utilities";
-import { Card, Input } from "sveltestrap";
+import { Card, Input, Label } from "sveltestrap";
 import Control from "../Control.svelte";
 import ObjectProps from "./ObjectProps.svelte";
 export let type = void 0;
@@ -63,11 +63,13 @@ async function resetData(selected2) {
 </script>
 
 <Card variant="unelevated" class="jsonschema-form-control control-anyof">
+    {#if title}
+        <Label>{title}</Label>
+    {/if}
   <Input type="select" name="select" id="exampleSelect">
       variant="outlined"
       key={getKey}
       class="control-anyof-select"
-      label={title}
       required={isRequired}
       menu$class="control-anyof-menu"
       menu$portal

@@ -1,4 +1,4 @@
-<script>import { Input } from "sveltestrap";
+<script>import { Input, Label } from "sveltestrap";
 export let data = $$props.default;
 export let title = void 0;
 export let description = void 0;
@@ -31,6 +31,9 @@ function updateValue(val) {
 </script>
 
 <div class="jsonschema-form-control control-number">
+  {#if title}
+    <Label>{title}</Label>
+  {/if}
   {#if enumValues?.length}
     <Input  feedback={description ? description : ""} type="select"  variant="outlined" bind:value label={title} required={isRequired} menu$portal>
       {#if !force}
