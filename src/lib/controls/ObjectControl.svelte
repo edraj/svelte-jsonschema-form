@@ -60,9 +60,6 @@
 {:else}
   <Accordion class="jsonschema-form-control control-object">
     <AccordionItem
-      bind:open
-      variant="unelevated"
-      disabled={!enabled}
       class={(hasRequired || ignoreEmpty) ? "no-disable" : undefined}
       nonInteractive={!hasProps}
     >

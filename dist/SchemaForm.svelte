@@ -90,7 +90,7 @@ export function download(arg1, arg2) {
         <!--  <CardSubtitle>{dereferenced.description}</CardSubtitle>-->
         <!--{/if}-->
         <CardBody class="d-flex flex-column">
-          <ObjectProps {...dereferenced} bind:data {uischema} force />
+          <ObjectProps {...dereferenced} bind:data {uischema} />
         </CardBody>
       </Card>
     {:else}

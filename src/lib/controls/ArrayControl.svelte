@@ -159,9 +159,6 @@
     header={title ?? ""}
     {extraSuffix}
     extraPrefix={!hasRequired ? extraPrefix : null}
-    bind:open
-    variant="unelevated"
-    disabled={!enabled}
     class={hasRequired ? "has-required" : undefined}
   >
     <h4>
