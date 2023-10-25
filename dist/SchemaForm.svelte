@@ -82,12 +82,12 @@ export function download(arg1, arg2) {
   {:then dereferenced}
     {#if isObjectSchema(dereferenced)}
       <Card>
-        {#if dereferenced.title}
-          <CardTitle>{dereferenced.title}</CardTitle>
-        {/if}
-        {#if dereferenced.description}
-          <CardSubtitle>{dereferenced.description}</CardSubtitle>
-        {/if}
+        <!--{#if dereferenced.title}-->
+        <!--  <CardTitle>{dereferenced.title}</CardTitle>-->
+        <!--{/if}-->
+        <!--{#if dereferenced.description}-->
+        <!--  <CardSubtitle>{dereferenced.description}</CardSubtitle>-->
+        <!--{/if}-->
         <CardBody class="d-flex flex-column">
           <ObjectProps {...dereferenced} bind:data {uischema} force />
         </CardBody>
