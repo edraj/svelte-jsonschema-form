@@ -30,7 +30,7 @@ function updateValue(val) {
 }
 </script>
 
-<div class="jsonschema-form-control control-number">
+<div class="jsonschema-form-control control-number mb-3">
   {#if title}
     <Label>{title}</Label>
   {/if}
