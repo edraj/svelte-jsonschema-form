@@ -15,6 +15,7 @@ import {
   CardSubtitle,
   CardTitle
 } from "sveltestrap";
+export let ref;
 export let schema = {};
 export let data = {};
 export let uischema = {};
@@ -76,7 +77,7 @@ export function download(arg1, arg2) {
 }
 </script>
 
-<form class="jsonschema-form">
+<form class="jsonschema-form" bind:this={ref}>
   {#await dereferencing}
     <p>dereferencing...</p>
   {:then dereferenced}

@@ -5,6 +5,7 @@ import DownloadOptions, { type DataTransform } from './DowloadOptions';
 import UISchema from "./UISchema";
 declare const __propDef: {
     props: {
+        ref: any;
         schema?: JSONSchema7 | undefined;
         data?: {
             [prop: string]: any;

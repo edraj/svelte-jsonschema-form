@@ -52,12 +52,9 @@
     <Input
       type={format ?? "number"}
       feedback={description ? description : ""}
-      variant="outlined"
-      label={title}
       bind:value={value}
       min={minimum}
       max={maximum}
-      step={multipleOf}
       required={isRequired}
     >
       <svelte:fragment slot="helper">

@@ -14,7 +14,7 @@ export let maxItems = Infinity;
 let open = true;
 let hasItems = false;
 let prefixed = [];
-let additional = void 0;
+let additional = null;
 let canAddItem = false;
 let enabled = true;
 $:
@@ -31,9 +31,13 @@ $: {
   ];
 }
 $:
-  canAddItem = additional != null && (ignoreEmpty || !!data) && (data?.length ?? 0) < maxItems;
+  hasRequired = checkRequired({
+    prefixItems,
+    items,
+    additionalItems
+  });
 $:
-  hasRequired = checkRequired({ prefixItems, items, additionalItems });
+  canAddItem = additional !== null && (ignoreEmpty || !!data) && (data?.length ?? 0) < maxItems;
 $:
   updateEnabled(data, hasRequired);
 $:
@@ -117,18 +121,22 @@ const extraPrefix = {
   action: stop,
   value: !enabled
 };
+$:
+  console.log({ canAddItem });
 </script>
 
 <Accordion class="jsonschema-form-control control-array">
-  <AccordionItem  header={title ?? ""}
-                  extraSuffix={canAddItem ? extraSuffix : null}
-                  extraPrefix={!hasRequired ? extraPrefix : null}
-                  bind:open variant="unelevated"  disabled={!enabled}
-                  class={hasRequired ? "has-required" : undefined}>
+  <AccordionItem
+    header={title ?? ""}
+    {extraSuffix}
+    extraPrefix={!hasRequired ? extraPrefix : null}
+    bind:open
+    variant="unelevated"
+    disabled={!enabled}
+    class={hasRequired ? "has-required" : undefined}
+  >
     <h4>
       <p>{description ?? ""}</p>
-      <div>
-      </div>
     </h4>
     <div class="smui-paper__content">
       <ul class="control-array-items">
@@ -147,7 +155,9 @@ const extraPrefix = {
                 <Button
                   on:click={() => moveItemUp(index)}
                   disabled={!canMoveItemUp(index)}
-                ><Icon name="arrow-bar-up"/></Button>
+                >
+                  <Icon name="arrow-bar-up" />
+                </Button>
                 <!-- {#if canRemoveItem(index)}
                   <Fab mini on:click={() => removeItem(index)}>
                     <Icon class="material-icons">delete</Icon>
@@ -156,11 +166,15 @@ const extraPrefix = {
                 <Button
                   on:click={() => removeItem(index)}
                   disabled={!canRemoveItem(index)}
-                ><Icon name="trash-fill"/></Button>
+                >
+                  <Icon name="trash-fill" />
+                </Button>
                 <Button
                   on:click={() => moveItemDown(index)}
                   disabled={!canMoveItemDown(index)}
-                ><Icon name="arrow-bar-down"/></Button>
+                >
+                  <Icon name="arrow-bar-down" />
+                </Button>
               </div>
             </li>
           {/each}
@@ -193,7 +207,10 @@ const extraPrefix = {
     flex-direction: column;
   }
 
-  .control-array-items > li > .control-array-item-actions :global(.mdc-icon-button) {
+  .control-array-items
+    > li
+    > .control-array-item-actions
+    :global(.mdc-icon-button) {
     color: revert;
   }
 </style>

@@ -1,4 +1,4 @@
-import type { JSONSchema7, JSONSchema7Definition } from "json-schema";
+import type { JSONSchema7 } from "json-schema";
 import type UISchema from "$lib/UISchema";
 import simpleSchema from "../schemas/simple/schema.json";
 import simpleData from "../schemas/simple/data.json";

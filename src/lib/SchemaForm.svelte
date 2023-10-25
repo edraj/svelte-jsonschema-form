@@ -18,6 +18,7 @@
     CardTitle
   } from 'sveltestrap';
 
+  export let ref;
   export let schema: JSONSchema7 = {};
   export let data: { [prop: string]: any } = {};
   export let uischema: UISchema = {};
@@ -96,7 +97,7 @@
   }
 </script>
 
-<form class="jsonschema-form">
+<form class="jsonschema-form" bind:this={ref}>
   {#await dereferencing}
     <p>dereferencing...</p>
   {:then dereferenced}

@@ -50,13 +50,10 @@
   {:else}
     <Input
       type={format ?? "number"}
-      variant="outlined"
       feedback={description ? description : ""}
-      label={title}
       bind:value={value}
       min={minimum}
       max={maximum}
-      step={multipleOf ?? "any"}
       required={isRequired}
     >
       <svelte:fragment slot="helper">
