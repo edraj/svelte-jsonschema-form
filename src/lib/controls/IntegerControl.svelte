@@ -34,7 +34,7 @@
   }
 </script>
 
-<div class="jsonschema-form-control control-integer">
+<div class="jsonschema-form-control control-integer mb-3">
   {#if title}
     <Label>{title}</Label>
   {/if}

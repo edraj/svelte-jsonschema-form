@@ -28,7 +28,7 @@
 
 </script>
 
-<div class="jsonschema-form-control control-boolean">
+<div class="jsonschema-form-control control-boolean mb-3">
   <FormGroup class="d-flex">
     <Input type="checkbox" bind:checked  feedback={description ? description : ""} /> {title}
   </FormGroup>
