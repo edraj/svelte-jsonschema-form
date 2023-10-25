@@ -47,9 +47,9 @@ function updateValue(val) {
       feedback={description ? description : ""}
       label={title}
       bind:value={value}
-      input$min={minimum}
-      input$max={maximum}
-      input$step={multipleOf ?? "any"}
+      min={minimum}
+      max={maximum}
+      step={multipleOf ?? "any"}
       required={isRequired}
     >
       <svelte:fragment slot="helper">

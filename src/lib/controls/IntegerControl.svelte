@@ -51,9 +51,9 @@
       variant="outlined"
       label={title}
       bind:value={value}
-      input$min={minimum}
-      input$max={maximum}
-      input$step={multipleOf}
+      min={minimum}
+      max={maximum}
+      step={multipleOf}
       required={isRequired}
     >
       <svelte:fragment slot="helper">
