@@ -27,6 +27,11 @@ export type TestSchema = {
 
 export default [
   {
+    name: "Any Of",
+    schema: <unknown>anyOfSchema as JSONSchema7,
+    data: anyOfData
+  },
+  {
     name: "Nested",
     schema: nestedSchema as JSONSchema7,
     data: nestedData
@@ -51,11 +56,6 @@ export default [
     name: "References",
     schema: referencesSchema as JSONSchema7,
     data: referencesData
-  },
-  {
-    name: "Any Of",
-    schema: <unknown>anyOfSchema as JSONSchema7,
-    data: anyOfData
   },
   {
     name: "All Of",

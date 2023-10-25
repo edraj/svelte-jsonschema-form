@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FormGroup, Input } from 'sveltestrap';
+  import {FormGroup, Input, Label} from 'sveltestrap';
 
   export let data: string | undefined = $$props.default;
   export let title: string | undefined = undefined;
@@ -35,7 +35,8 @@
   
 </script>
 
-<div class="jsonschema-form-control control-string">
+<div class="jsonschema-form-control control-string mb-3">
+  <Label>{title}</Label>
   {#if enumValues?.length}
     <Input  type="select" bind:value label={title} required={isRequired} menu$portal feedback={description ? description : ""}>
       {#if !force}

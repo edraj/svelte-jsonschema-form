@@ -3,7 +3,7 @@
   import UISchema from "$lib/UISchema";
   import { hasRequired as checkRequired, isBoolean } from "$lib/utilities";
   import Control from "../Control.svelte";
-  import { Button, Icon, Accordion, AccordionItem, Row } from 'sveltestrap';
+  import { Button, Icon, Accordion, AccordionItem } from 'sveltestrap';
 
 
   export let data: any[] | undefined = undefined;
@@ -130,11 +130,26 @@
 
   function stop(event: Event) {
     event.stopPropagation();
+    enabled = !enabled
   }
+
+  const extraSuffix = {
+    action: headerAddItem,
+    icon: "plus-square-fill"
+  }
+  const extraPrefix = {
+    action: stop,
+    value: enabled
+  }
+
 </script>
 
 <Accordion class="jsonschema-form-control control-array">
-  <AccordionItem  header={title ?? ""} bind:open variant="unelevated"  disabled={!enabled}  class={hasRequired ? "has-required" : undefined}>
+  <AccordionItem  header={title ?? ""}
+                  extraSuffix={canAddItem ? extraSuffix : null}
+                  extraPrefix={!hasRequired ? extraPrefix : null}
+                  bind:open variant="unelevated"  disabled={!enabled}
+                  class={hasRequired ? "has-required" : undefined}>
     <h4>
       {#if !hasRequired}
         <Button type="button" toggle bind:pressed={enabled} size="button" on:click={stop}>
@@ -144,13 +159,6 @@
       {/if}
       <p>{description ?? ""}</p>
       <div>
-        {#if canAddItem}
-          <Button type="button" class="material-icons" on:click={headerAddItem} size="button">add</Button>
-        {/if}
-        <Button type="button" toggle pressed={open} size="button">
-          <Icon class="arrows-angle-expand" />
-          <Icon class="arrows-angle-contract" />
-        </Button>
       </div>
     </h4>
     <div class="smui-paper__content">
@@ -168,10 +176,7 @@
               </div>
               <div class="control-array-item-actions">
                 <Button
-                  type="button"
                   on:click={() => moveItemUp(index)}
-                  class="material-icons"
-                  size="button"
                   disabled={!canMoveItemUp(index)}
                 ><Icon name="arrow-bar-up"/></Button>
                 <!-- {#if canRemoveItem(index)}
@@ -180,17 +185,11 @@
                   </Fab>
                 {/if} -->
                 <Button
-                  type="button"
                   on:click={() => removeItem(index)}
-                  class="material-icons"
-                  size="button"
                   disabled={!canRemoveItem(index)}
                 ><Icon name="trash-fill"/></Button>
                 <Button
-                  type="button"
                   on:click={() => moveItemDown(index)}
-                  class="material-icons"
-                  size="button"
                   disabled={!canMoveItemDown(index)}
                 ><Icon name="arrow-bar-down"/></Button>
               </div>
