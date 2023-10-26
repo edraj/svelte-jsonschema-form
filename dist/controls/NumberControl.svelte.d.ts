@@ -9,7 +9,6 @@ declare const __propDef: {
         isRequired?: boolean | undefined;
         minimum?: number | undefined;
         maximum?: number | undefined;
-        multipleOf?: number | undefined;
         force?: boolean | undefined;
     };
     events: {

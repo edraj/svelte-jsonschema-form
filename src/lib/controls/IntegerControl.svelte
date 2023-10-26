@@ -9,7 +9,7 @@
   export let isRequired: boolean | undefined = undefined;
   export let minimum: number | undefined = undefined;
   export let maximum: number | undefined = undefined;
-  export let multipleOf: number | undefined = undefined;
+  // export let multipleOf: number | undefined = undefined;
   export let force: boolean = false;
 
   let value = data ?? NaN;
