@@ -26,7 +26,7 @@ export type TestSchema = {
 };
 
 
-const x = {
+const milsimdata = {
   "type": "object",
   "title": "MILSIM",
   "properties": {
@@ -58,13 +58,86 @@ const x = {
     "ex",
     "wps"
   ]
-}
+};
 
-
+const notificationSystemData =  {
+  "title": "System Notification Request",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "on_space": {
+      "title": "On Space",
+      "type": "string"
+    },
+    "on_subpath": {
+      "title": "On Subpath",
+      "type": "string"
+    },
+    "on_action": {
+      "title": "On Action",
+      "type": "string",
+      "enum": [
+        "query",
+        "view",
+        "create",
+        "update",
+        "delete",
+        "attach",
+        "move",
+        "progress_ticket"
+      ]
+    },
+    "on_state": {
+      "title": "On State",
+      "type": "string"
+    },
+    "priority": {
+      "title": "Priority",
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "types": {
+      "title": "Priority",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "web",
+          "mobile",
+          "sms"
+        ]
+      }
+    },
+    "deep_link": {
+      "title": "Deep Link",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "dest": {
+          "title": "Destination",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "on_space",
+    "on_subpath",
+    "on_action",
+    "priority"
+  ]
+};
 
 export default [
   {
-    name: "milsom", schema: x as JSONSchema7, data: {}
+    name: "system_notification", schema: notificationSystemData as JSONSchema7, data: {}
+  },
+  {
+    name: "milsom", schema: milsimdata as JSONSchema7, data: {}
   },
   {
     name: "Any Of",

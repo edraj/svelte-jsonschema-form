@@ -86,7 +86,7 @@
       </TabPane>
     {/each}
   </TabContent>
-  <SchemaForm {schema} {uischema} bind:data bind:this={schemaForm}>
+  <SchemaForm {schema} {uischema} bind:data bind:this={schemaForm} ref={null}>
     <Button color="primary" on:click={download} type="button" variant="raised">
       Download
     </Button>

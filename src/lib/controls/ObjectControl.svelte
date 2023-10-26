@@ -52,7 +52,19 @@
 
   function stop(event: Event) {
     event.stopPropagation();
+      enabled = !enabled;
   }
+
+  const extraSuffix = {
+      action: () => {
+          open = !open
+      },
+      icon: "plus-square-fill"
+  };
+  const extraPrefix = {
+      action: stop,
+      value: !enabled
+  };
 </script>
 
 {#if justAnyOf}
@@ -61,27 +73,11 @@
   <Accordion class="jsonschema-form-control control-object">
     <AccordionItem
       class={(hasRequired || ignoreEmpty) ? "no-disable" : undefined}
+      header={title ?? ""}
+      extraPrefix={!hasRequired && !ignoreEmpty ? extraPrefix : null}
       nonInteractive={!hasProps}
     >
-        {#if !hasRequired && !ignoreEmpty}
-          <Button type="button" toggle bind:pressed={enabled} size="button" on:click={stop}>
-            <Icon name="check-square-fill" />
-            <Icon name="check-square" />
-          </Button>
-        {/if}
-        <span class="control-object-title">{title ?? ""}</span>
-        <svelte:fragment slot="description">{description ?? ""}</svelte:fragment>
-        <svelte:fragment slot="icon">
-          {#if hasProps}
-            <Button type="button"toggle pressed={open} size="button">
-              <Icon class="arrows-angle-expand" />
-              <Icon class="arrows-angle-contract" />
-            </Button>
-          {/if}
-        </svelte:fragment>
-
         <ObjectProps {title} {properties} {required} {anyOf} bind:data {uischema} />
-
     </AccordionItem>
   </Accordion>
 {/if}
