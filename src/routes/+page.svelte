@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "../theme/_custom.scss"
+  // import "../theme/_custom.scss"
   import { tick } from 'svelte';
   import SchemaForm, { type ValidationError } from "$lib";
   import schemas, { type TestSchema } from "../schemas";

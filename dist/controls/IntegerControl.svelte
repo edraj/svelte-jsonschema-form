@@ -44,7 +44,7 @@ console.log({ title, format });
   {/if}
 
   {#if enumValues?.length}
-    <Input  type="select" variant="outlined" bind:value label={title} required={isRequired} menu$portal feedback={description ? description : ""}>
+    <Input  type="select" variant="outlined" bind:value label={title} required={isRequired} feedback={description ? description : ""}>
       {#if !force}
         <option value={NaN}/>
       {/if}

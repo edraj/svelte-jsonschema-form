@@ -80,8 +80,6 @@
       key={getKey}
       class="control-anyof-select"
       required={isRequired}
-      menu$class="control-anyof-menu"
-      menu$portal
       bind:value={selected}
     >
       {#if !force}
