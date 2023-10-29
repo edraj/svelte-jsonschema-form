@@ -67,7 +67,7 @@ const extraPrefix = {
 {#if justAnyOf}
   <AnyOfControl {title} {anyOf} type={'object'} bind:data {uischema} />
 {:else}
-  <Accordion class="jsonschema-form-control control-object">
+  <Accordion class="jsonschema-form-control control-object mb-3">
     <AccordionItem
       class={(hasRequired || ignoreEmpty) ? "no-disable" : undefined}
       header={title ?? ""}

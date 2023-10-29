@@ -121,11 +121,9 @@ const extraPrefix = {
   action: stop,
   value: !enabled
 };
-$:
-  console.log({ canAddItem });
 </script>
 
-<Accordion class="jsonschema-form-control control-array">
+<Accordion class="jsonschema-form-control control-array mb-3">
   <AccordionItem
     header={title ?? ""}
     {extraSuffix}

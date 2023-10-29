@@ -132,7 +132,100 @@ const notificationSystemData =  {
   ]
 };
 
+const adminNotificationData = {
+  "title": "System Notification Request",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "msisdns": {
+      "title": "Send To",
+      "type": "array",
+      "items": {
+        "title": "MSISDN",
+        "type": "string"
+      }
+    },
+    "filter_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "scheduled_at": {
+      "type": "integer",
+      "format": "date-time"
+    },
+    "push_only": {
+      "title": "Push Only",
+      "description": "If marked as 'yes', the notification won't be stored for the user's future access",
+      "type": "boolean",
+      "default": false
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "finished"
+      ],
+      "default": "pending"
+    },
+    "governorate": {
+      "type": "object",
+      "properties": {
+        "shortname": {
+          "type": "string"
+        },
+        "sector_shortname": {
+          "type": "string"
+        }
+      },
+      "required": []
+    },
+    "sender_id": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "types": {
+      "title": "Send to",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "web",
+          "mobile",
+          "sms"
+        ]
+      }
+    }
+  },
+  "required": [
+    "priority",
+    "types"
+  ]
+};
+
 export default [
+  {
+    name: "admin_notification", schema: adminNotificationData as JSONSchema7, data: {}
+  },
   {
     name: "system_notification", schema: notificationSystemData as JSONSchema7, data: {}
   },

@@ -19,6 +19,13 @@
   $: updateValue(data);
   $: enumValues = $$props.enum;
 
+  function formatCasting(){
+      switch (format) {
+          case 'date-time': return "datetime-local";
+          default: return format;
+      }
+  }
+
   function updateData(val: number) {
     const setData = (Number.isNaN(val)) ? force ? ($$props.default ?? NaN) : undefined : val;
     if (data !== setData) {
@@ -32,6 +39,7 @@
       value = setValue;
     }
   }
+  console.log({title, format})
 </script>
 
 <div class="jsonschema-form-control control-integer mb-3">
@@ -50,7 +58,7 @@
     </Input>
   {:else}
     <Input
-      type={format ?? "number"}
+      type={formatCasting() ?? "number"}
       feedback={description ? description : ""}
       bind:value={value}
       min={minimum}
