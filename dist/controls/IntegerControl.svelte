@@ -35,7 +35,6 @@ function updateValue(val) {
     value = setValue;
   }
 }
-console.log({ title, format });
 </script>
 
 <div class="jsonschema-form-control control-integer mb-3">
