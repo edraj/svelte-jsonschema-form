@@ -9,7 +9,7 @@
   export let data: { [prop: string]: any } | undefined = undefined;
   export let uischema: UISchema = {};
   export let title: string | undefined = undefined;
-  export let description: string | undefined = undefined;
+  // export let description: string | undefined = undefined;
   export let properties: { [prop: string]: any } | undefined = undefined;
   export let required: string[] = [];
   export let anyOf: JSONSchema7Definition[] | undefined = undefined;
