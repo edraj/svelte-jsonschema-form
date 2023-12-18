@@ -1,5 +1,4 @@
 import { SvelteComponentTyped } from "svelte";
-import 'core-js/actual/structured-clone';
 import type { JSONSchema7 } from "json-schema";
 import DownloadOptions, { type DataTransform } from './DowloadOptions';
 import UISchema from "./UISchema";

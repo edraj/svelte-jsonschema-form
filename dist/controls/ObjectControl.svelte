@@ -1,6 +1,6 @@
 <script>import { hasRequired as checkRequired, isBoolean } from "../utilities";
 import UISchema from "../UISchema";
-import { Accordion, AccordionItem, Button, Icon } from "sveltestrap";
+import { Accordion, AccordionItem } from "sveltestrap";
 import AnyOfControl from "./AnyOfControl.svelte";
 import ObjectProps from "./ObjectProps.svelte";
 export let data = void 0;
@@ -47,8 +47,7 @@ function updateData(enabled2) {
     data = shouldHaveData ? {} : void 0;
   }
 }
-function stop(event) {
-  event.stopPropagation();
+function stop() {
   enabled = !enabled;
 }
 const extraSuffix = {
@@ -69,7 +68,7 @@ const extraPrefix = {
   <Accordion class="jsonschema-form-control control-object mb-3">
     <AccordionItem
       class={(hasRequired || ignoreEmpty) ? "no-disable" : undefined}
-      header={title ?? ""}
+      header={(title ?? data?.title) ?? ""}
       extraPrefix={!hasRequired && !ignoreEmpty ? extraPrefix : null}
       nonInteractive={!hasProps}
     >

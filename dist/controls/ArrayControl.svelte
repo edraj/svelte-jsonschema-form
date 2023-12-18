@@ -2,7 +2,9 @@
 import { hasRequired as checkRequired, isBoolean } from "../utilities";
 import Control from "../Control.svelte";
 import { Button, Icon, Accordion, AccordionItem } from "sveltestrap";
+import { onMount } from "svelte";
 export let data = void 0;
+let localData = data;
 export let uischema = {};
 export let title = void 0;
 export let description = null;
@@ -12,17 +14,26 @@ export let additionalItems = void 0;
 export let minItems = 0;
 export let maxItems = Infinity;
 let open = true;
-let hasItems = false;
+let hasItems = (data?.length ?? 0) > 0;
 let prefixed = [];
 let additional = null;
 let canAddItem = false;
 let enabled = true;
-$:
-  uiOptions = UISchema.Options.get(uischema);
-$:
-  ignoreEmpty = $uiOptions.ignoreEmpty ?? false;
-$:
-  hasItems = (data?.length ?? 0) > 0;
+let uiOptions = UISchema.Options.get(uischema);
+let ignoreEmpty = $uiOptions.ignoreEmpty ?? false;
+let hasRequired = false;
+onMount(() => {
+  hasRequired = checkRequired({
+    prefixItems,
+    items,
+    additionalItems
+  });
+  updateEnabled(data, hasRequired);
+  updateData(enabled, ignoreEmpty);
+  updateOpen(enabled);
+  console.log({ data });
+  canAddItem = true;
+});
 $: {
   const itemsIsArray = Array.isArray(items);
   [prefixed, additional] = [
@@ -30,22 +41,6 @@ $: {
     itemsIsArray ? additionalItems : items
   ];
 }
-$:
-  hasRequired = checkRequired({
-    prefixItems,
-    items,
-    additionalItems
-  });
-$:
-  canAddItem = additional !== null && (ignoreEmpty || !!data) && (data?.length ?? 0) < maxItems;
-$:
-  updateEnabled(data, hasRequired);
-$:
-  updateData(enabled, ignoreEmpty);
-$:
-  updateOpen(enabled);
-$:
-  updateOpen($uiOptions.collapse);
 function getKey(index) {
   const value = data[index];
   const useIndex = value == null || typeof value !== "object";
@@ -68,7 +63,29 @@ function canMoveItemDown(index) {
 }
 function addItem() {
   if (canAddItem) {
-    data = [...data ?? [], void 0];
+    switch (additional?.type) {
+      case "array":
+        data = [...data ?? [], []];
+        break;
+      case "boolean":
+        data = [...data ?? [], false];
+        break;
+      case "integer":
+        data = [...data ?? [], 0];
+        break;
+      case "number":
+        data = [...data ?? [], 0];
+        break;
+      case "object":
+        data = [...data ?? [], {}];
+        break;
+      case "null":
+        data = [...data ?? [], null];
+        break;
+      case "string":
+        data = [...data ?? [], ""];
+        break;
+    }
   }
 }
 function removeItem(index) {
@@ -87,12 +104,6 @@ function moveItemDown(index) {
     [data[index + 1], data[index]] = [data[index], data[index + 1]];
   }
 }
-function headerAddItem(event) {
-  addItem();
-  event.stopPropagation();
-  event.preventDefault();
-  return false;
-}
 function updateOpen(arg) {
   open = hasItems || (isBoolean(arg) ? arg : !UISchema.shouldCollapse($$props, arg, open));
 }
@@ -109,19 +120,19 @@ function updateData(enabled2, ignoreEmpty2) {
     data = shouldHaveData ? [] : void 0;
   }
 }
-function stop(event) {
-  event.stopPropagation();
+function stop() {
   enabled = !enabled;
 }
 const extraSuffix = {
-  action: headerAddItem,
+  action: addItem,
   icon: "plus-square-fill"
 };
 const extraPrefix = {
   action: stop,
-  value: !enabled
+  value: enabled
 };
 </script>
+
 
 <Accordion class="jsonschema-form-control control-array mb-3">
   <AccordionItem
@@ -133,51 +144,48 @@ const extraPrefix = {
     <h4>
       <p>{description ?? ""}</p>
     </h4>
-    <div class="smui-paper__content">
-      <ul class="control-array-items">
+
+    <ul class="control-array-items">
         {#if data}
           {#each data as value, index (getKey(index))}
             <li>
-              <div class="">
                 <Control
                   schema={getItem(index)}
                   bind:data={value}
                   uischema={uischema?.["items"]}
                   force
                 />
-              </div>
               <div class="control-array-item-actions">
                 <Button
+                  class="p-1 m-0"
                   on:click={() => moveItemUp(index)}
                   disabled={!canMoveItemUp(index)}
                 >
                   <Icon name="arrow-bar-up" />
                 </Button>
-                <!-- {#if canRemoveItem(index)}
-                  <Fab mini on:click={() => removeItem(index)}>
-                    <Icon class="material-icons">delete</Icon>
-                  </Fab>
-                {/if} -->
                 <Button
+                  class="p-1 m-0"
                   on:click={() => removeItem(index)}
                   disabled={!canRemoveItem(index)}
                 >
                   <Icon name="trash-fill" />
                 </Button>
                 <Button
+                  class="p-1 m-0"
                   on:click={() => moveItemDown(index)}
                   disabled={!canMoveItemDown(index)}
                 >
-                  <Icon name="arrow-bar-down" />
+                  <Icon name="arrow-bar-down p-0" />
                 </Button>
               </div>
             </li>
           {/each}
         {/if}
       </ul>
-    </div>
+
   </AccordionItem>
 </Accordion>
+
 
 <style>
   .control-array-items {

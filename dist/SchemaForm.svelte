@@ -1,5 +1,4 @@
-<script>import "core-js/actual/structured-clone";
-import DownloadOptions, {} from "./DowloadOptions";
+<script>import DownloadOptions, {} from "./DowloadOptions";
 import UISchema from "./UISchema";
 import JsonSchemaDereferencer from "@json-schema-tools/dereferencer";
 import Ajv from "ajv";
@@ -11,9 +10,7 @@ import ValidationError from "./ValidationError";
 import { isObjectSchema, isString } from "./utilities";
 import {
   Card,
-  CardBody,
-  CardSubtitle,
-  CardTitle
+  CardBody
 } from "sveltestrap";
 export let ref;
 export let schema = {};
@@ -33,15 +30,15 @@ const actions = {
   download
 };
 let uischemaStore = UISchema.store(uischema);
-$:
+let dereferencing;
+$: {
   dereferencing = new Dereferencer(
     mergeAllOf(structuredClone(schema)),
-    { mutate: true }
+    { mutate: true, recursive: false }
   ).resolve();
-$:
-  validator = ajv.compile(schema);
-$:
-  updateUischemaStore(uischema);
+}
+let validator = ajv.compile(schema);
+updateUischemaStore(uischema);
 function updateUischemaStore(uischema2) {
   $uischemaStore = uischema2[UISchema.Options.Key] ?? {};
 }

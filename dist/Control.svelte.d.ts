@@ -3,7 +3,7 @@ import type { JSONSchema7 } from "json-schema";
 import type UISchema from "./UISchema";
 declare const __propDef: {
     props: {
-        schema: JSONSchema7 | undefined;
+        schema: JSONSchema7 | null;
         data?: any;
         uischema?: UISchema | undefined;
         force?: boolean | undefined;

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import 'core-js/actual/structured-clone';
   import type { JSONSchema7 } from "json-schema";
   import DownloadOptions, { type DataTransform } from './DowloadOptions';
   import UISchema from "./UISchema";
@@ -14,8 +13,6 @@
   import {
     Card,
     CardBody,
-    CardSubtitle,
-    CardTitle
   } from 'sveltestrap';
 
   export let ref;
@@ -45,14 +42,16 @@
   };
   let uischemaStore = UISchema.store(uischema);
 
-  $: dereferencing = new Dereferencer(
-    mergeAllOf(structuredClone(schema)),
-    { mutate: true }
-  ).resolve();
+  let dereferencing: any;
+  $: {
+      dereferencing = new Dereferencer(
+          mergeAllOf(structuredClone(schema)),
+          {mutate: true, recursive: false}
+      ).resolve();
+  }
 
-  $: validator = ajv.compile(schema);
-
-  $: updateUischemaStore(uischema);
+  let validator = ajv.compile(schema);
+  updateUischemaStore(uischema);
 
   function updateUischemaStore(uischema: UISchema) {
     $uischemaStore = uischema[UISchema.Options.Key] ?? {};

@@ -2,7 +2,7 @@
   import type { JSONSchema7Definition } from "json-schema";
   import { hasRequired as checkRequired, isBoolean } from "$lib/utilities";
   import UISchema from "$lib/UISchema";
-  import { Accordion, AccordionItem, Button, Icon } from 'sveltestrap';
+  import { Accordion, AccordionItem } from 'sveltestrap';
   import AnyOfControl from "./AnyOfControl.svelte";
   import ObjectProps from "./ObjectProps.svelte";
 
@@ -50,8 +50,7 @@
     }
   }
 
-  function stop(event: Event) {
-    event.stopPropagation();
+  function stop() {
       enabled = !enabled;
   }
 
@@ -73,7 +72,7 @@
   <Accordion class="jsonschema-form-control control-object mb-3">
     <AccordionItem
       class={(hasRequired || ignoreEmpty) ? "no-disable" : undefined}
-      header={title ?? ""}
+      header={(title ?? data?.title) ?? ""}
       extraPrefix={!hasRequired && !ignoreEmpty ? extraPrefix : null}
       nonInteractive={!hasProps}
     >
