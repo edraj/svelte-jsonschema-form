@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {FormGroup, Input, Label} from 'sveltestrap';
+  import { Input, Label} from 'sveltestrap';
 
   export let data: string | undefined = $$props.default;
   export let title: string | undefined = undefined;
@@ -17,6 +17,13 @@
   $: updateData(value);
   $: updateValue(data);
   $: enumValues = $$props.enum;
+
+  function formatCasting(){
+      switch (format) {
+          case 'date-time': return "datetime-local";
+          default: return format;
+      }
+  }
 
 
   function updateData(val: string) {
@@ -51,7 +58,7 @@
     <Input
       feedback={description ? description : ""}
       label={title}
-      type={format}
+      type={formatCasting()}
       bind:value
       {minLength}
       {maxLength}

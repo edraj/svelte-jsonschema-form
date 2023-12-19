@@ -4,7 +4,6 @@ import Control from "../Control.svelte";
 import { Button, Icon, Accordion, AccordionItem } from "sveltestrap";
 import { onMount } from "svelte";
 export let data = void 0;
-let localData = data;
 export let uischema = {};
 export let title = void 0;
 export let description = null;
@@ -14,24 +13,22 @@ export let additionalItems = void 0;
 export let minItems = 0;
 export let maxItems = Infinity;
 let open = true;
-let hasItems = (data?.length ?? 0) > 0;
+const hasItems = (data?.length ?? 0) > 0;
 let prefixed = [];
 let additional = null;
 let canAddItem = false;
 let enabled = true;
-let uiOptions = UISchema.Options.get(uischema);
-let ignoreEmpty = $uiOptions.ignoreEmpty ?? false;
-let hasRequired = false;
+const uiOptions = UISchema.Options.get(uischema);
+const ignoreEmpty = $uiOptions.ignoreEmpty ?? false;
+const hasRequired = checkRequired({
+  prefixItems,
+  items,
+  additionalItems
+});
 onMount(() => {
-  hasRequired = checkRequired({
-    prefixItems,
-    items,
-    additionalItems
-  });
   updateEnabled(data, hasRequired);
   updateData(enabled, ignoreEmpty);
   updateOpen(enabled);
-  console.log({ data });
   canAddItem = true;
 });
 $: {
@@ -114,7 +111,7 @@ function updateEnabled(data2, hasRequired2) {
   }
 }
 function updateData(enabled2, ignoreEmpty2) {
-  const hasData = data != null;
+  const hasData = typeof data === "object" ? Object.keys(data).length > 0 : !!data;
   const shouldHaveData = enabled2 && !ignoreEmpty2;
   if (hasData != shouldHaveData) {
     data = shouldHaveData ? [] : void 0;
@@ -138,7 +135,7 @@ const extraPrefix = {
   <AccordionItem
     header={title ?? ""}
     {extraSuffix}
-    extraPrefix={!hasRequired ? extraPrefix : null}
+    extraPrefix={hasRequired ? extraPrefix : null}
     class={hasRequired ? "has-required" : undefined}
   >
     <h4>

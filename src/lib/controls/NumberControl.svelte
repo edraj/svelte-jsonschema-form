@@ -1,6 +1,5 @@
 <script lang="ts">
-
-  import {Input, Label} from "sveltestrap";
+  import { Input, Label } from "sveltestrap";
 
   export let data: number | undefined = $$props.default;
   export let title: string | undefined = undefined;

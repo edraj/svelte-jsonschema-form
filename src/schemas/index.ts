@@ -1,4 +1,4 @@
-import type { JSONSchema7 } from "json-schema";
+import type {JSONSchema7} from "json-schema";
 import type UISchema from "$lib/UISchema";
 import simpleSchema from "../schemas/simple/schema.json";
 import simpleData from "../schemas/simple/data.json";
@@ -26,7 +26,45 @@ export type TestSchema = {
 };
 
 
-const milsimdata = {
+const datesData = {
+    "type": "object",
+    "properties": {
+        "table_name": {
+            "type": "object",
+            "properties": {
+                "change_history": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        title: "Dates",
+                        "properties": {
+                            "change_date_time": {
+                                "type": "string",
+                                "format": "date-time",
+                                "title": "change_date_time"
+                            },
+                            "changer_date": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "change_date"
+                            },
+                            "change_time": {
+                                "type": "string",
+                                "format": "time",
+                                "title": "change_time"
+                            }
+                        }
+                    }
+                }
+            },
+            "title": "table_name"
+        }
+    },
+    "title": "Table for data other than attachments"
+}
+
+
+const milsimData = {
     "type": "object",
     "title": "MILSIM",
     "properties": {
@@ -488,6 +526,9 @@ const nestedArrayData = {
 
 export default [
     {
+        name: "dates", schema: datesData as JSONSchema7, data: {}
+    },
+    {
         name: "nested_array", schema: nestedArrayData as JSONSchema7, data: {}
     },
     {
@@ -500,7 +541,7 @@ export default [
         name: "system_notification", schema: notificationSystemData as JSONSchema7, data: {}
     },
     {
-        name: "milsom", schema: milsimdata as JSONSchema7, data: {}
+        name: "milsom", schema: milsimData as JSONSchema7, data: {}
     },
     {
         name: "Any Of",

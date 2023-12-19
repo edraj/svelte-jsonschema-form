@@ -1,4 +1,4 @@
-<script>import { FormGroup, Input, Label } from "sveltestrap";
+<script>import { Input, Label } from "sveltestrap";
 export let data = $$props.default;
 export let title = void 0;
 export let description = void 0;
@@ -16,6 +16,14 @@ $:
   updateValue(data);
 $:
   enumValues = $$props.enum;
+function formatCasting() {
+  switch (format) {
+    case "date-time":
+      return "datetime-local";
+    default:
+      return format;
+  }
+}
 function updateData(val) {
   const setData = !!val || force ? val : void 0;
   if (data !== setData) {
@@ -47,7 +55,7 @@ function updateValue(val) {
     <Input
       feedback={description ? description : ""}
       label={title}
-      type={format}
+      type={formatCasting()}
       bind:value
       {minLength}
       {maxLength}

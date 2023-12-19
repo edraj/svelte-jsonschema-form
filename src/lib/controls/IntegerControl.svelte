@@ -1,6 +1,5 @@
 <script lang="ts">
-
-  import {Input, Label} from "sveltestrap";
+  import { Input, Label } from "sveltestrap";
 
   export let data: number | undefined = $$props.default;
   export let title: string | undefined = undefined;
@@ -18,13 +17,6 @@
   $: updateData(value);
   $: updateValue(data);
   $: enumValues = $$props.enum;
-
-  function formatCasting(){
-      switch (format) {
-          case 'date-time': return "datetime-local";
-          default: return format;
-      }
-  }
 
   function updateData(val: number) {
     const setData = (Number.isNaN(val)) ? force ? ($$props.default ?? NaN) : undefined : val;
@@ -57,7 +49,7 @@
     </Input>
   {:else}
     <Input
-      type={formatCasting() ?? "number"}
+      type={"number"}
       feedback={description ? description : ""}
       bind:value={value}
       min={minimum}

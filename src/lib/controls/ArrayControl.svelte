@@ -7,7 +7,6 @@
   import {onMount} from "svelte";
 
   export let data: any[] | undefined = undefined;
-  let localData = data;
   export let uischema: UISchema = {};
   export let title: string | undefined = undefined;
   export let description: string | null = null;
@@ -27,26 +26,24 @@
   // export let unevaluatedItems: JSONSchema7 | undefined = undefined;
 
   let open = true;
-  let hasItems: boolean = (data?.length ?? 0) > 0;
+  const hasItems: boolean = (data?.length ?? 0) > 0;
   let prefixed: JSONSchema7[] = [];
   let additional: JSONSchema7 | null = null;
   let canAddItem = false;
   let enabled = true;
 
-  let uiOptions = UISchema.Options.get(uischema);
-  let ignoreEmpty = $uiOptions.ignoreEmpty ?? false;
-  let hasRequired = false;
+  const uiOptions = UISchema.Options.get(uischema);
+  const ignoreEmpty = $uiOptions.ignoreEmpty ?? false;
+  const hasRequired = checkRequired({
+      prefixItems,
+      items,
+      additionalItems,
+  } as any);
 
   onMount(()=>{
-    hasRequired = checkRequired({
-        prefixItems,
-        items,
-        additionalItems,
-    } as any);
     updateEnabled(data, hasRequired);
     updateData(enabled, ignoreEmpty);
     updateOpen(enabled);
-      console.log({data})
     canAddItem = true;
   });
 
@@ -135,7 +132,7 @@
   }
 
   function updateData(enabled: boolean, ignoreEmpty: boolean) {
-    const hasData = data != null;
+    const hasData = typeof(data) === 'object' ? Object.keys(data).length > 0 : !!data;
     const shouldHaveData = enabled && !ignoreEmpty;
     if (hasData != shouldHaveData) {
       data = shouldHaveData ? [] : undefined;
@@ -161,7 +158,7 @@
   <AccordionItem
     header={title ?? ""}
     {extraSuffix}
-    extraPrefix={!hasRequired ? extraPrefix : null}
+    extraPrefix={hasRequired ? extraPrefix : null}
     class={hasRequired ? "has-required" : undefined}
   >
     <h4>

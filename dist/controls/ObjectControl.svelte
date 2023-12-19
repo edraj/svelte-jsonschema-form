@@ -11,18 +11,12 @@ export let required = [];
 export let anyOf = void 0;
 export let isRequired = void 0;
 let open = true;
-let hasProps = false;
-let enabled = true;
-$:
-  uiOptions = UISchema.Options.get(uischema);
-$:
-  justAnyOf = title == null && properties == null && anyOf != null;
-$:
-  hasProps = !!Object.keys(properties ?? {}).length || !!Object.keys(anyOf ?? {}).length;
-$:
-  hasRequired = isRequired || checkRequired({ properties, required, anyOf });
-$:
-  ignoreEmpty = $uiOptions.ignoreEmpty ?? false;
+let enabled = false;
+const uiOptions = UISchema.Options.get(uischema);
+const justAnyOf = title == null && properties == null && anyOf != null;
+const hasProps = !!Object.keys(properties ?? {}).length || !!Object.keys(anyOf ?? {}).length;
+const hasRequired = isRequired || checkRequired({ properties, required, anyOf });
+const ignoreEmpty = $uiOptions.ignoreEmpty ?? false;
 $:
   updateEnabled(data, hasRequired, ignoreEmpty);
 $:
@@ -35,13 +29,13 @@ function updateOpen(arg) {
   open = hasProps && (isBoolean(arg) ? arg : !UISchema.shouldCollapse($$props, arg, open));
 }
 function updateEnabled(data2, hasRequired2, ignoreEmpty2) {
-  const shouldEnable = hasRequired2 || ignoreEmpty2 || !!data2;
+  const shouldEnable = hasRequired2 || !!data2;
   if (shouldEnable != enabled) {
     enabled = shouldEnable;
   }
 }
 function updateData(enabled2) {
-  const hasData = data != null;
+  const hasData = typeof data === "object" ? Object.keys(data).length > 0 : !!data;
   const shouldHaveData = enabled2 && !ignoreEmpty;
   if (hasData != shouldHaveData) {
     data = shouldHaveData ? {} : void 0;
@@ -50,15 +44,9 @@ function updateData(enabled2) {
 function stop() {
   enabled = !enabled;
 }
-const extraSuffix = {
-  action: () => {
-    open = !open;
-  },
-  icon: "plus-square-fill"
-};
 const extraPrefix = {
   action: stop,
-  value: !enabled
+  value: enabled
 };
 </script>
 
@@ -67,9 +55,9 @@ const extraPrefix = {
 {:else}
   <Accordion class="jsonschema-form-control control-object mb-3">
     <AccordionItem
-      class={(hasRequired || ignoreEmpty) ? "no-disable" : undefined}
+      class={hasRequired ? "no-disable" : undefined}
       header={(title ?? data?.title) ?? ""}
-      extraPrefix={!hasRequired && !ignoreEmpty ? extraPrefix : null}
+      extraPrefix={!hasRequired ? extraPrefix : null}
       nonInteractive={!hasProps}
     >
         <ObjectProps {title} {properties} {required} {anyOf} bind:data {uischema} />
