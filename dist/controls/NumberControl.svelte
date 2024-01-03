@@ -50,6 +50,7 @@ function updateValue(val) {
       min={minimum}
       max={maximum}
       required={isRequired}
+      step="any"
     >
       <svelte:fragment slot="helper">
       </svelte:fragment>
