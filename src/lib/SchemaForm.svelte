@@ -28,18 +28,6 @@
   const Dereferencer: typeof JsonSchemaDereferencer = (<any>JsonSchemaDereferencer).default ?? JsonSchemaDereferencer;
   const ajv = new Ajv();
   ajvFormats(ajv);
-  const actions = {
-    get blob() {
-      return getBlob();
-    },
-
-    get url() {
-      return getUrl();
-    },
-
-    validate,
-    download
-  };
   let uischemaStore = UISchema.store(uischema);
 
   let dereferencing: any;
@@ -60,39 +48,6 @@
   export function validate() {
     const valid = validator(data);
     return valid || (validator.errors ?? false);
-  }
-
-  export function getBlob(transform?: DataTransform) {
-    const transformed = transform ? transform(structuredClone(data), schema) : data;
-    return new Blob(
-      [JSON.stringify(transformed)],
-      { type: "application/json"}
-    );
-  }
-
-  export function getUrl(transform?: DataTransform) {
-    const blob = getBlob(transform);
-    return URL.createObjectURL(blob);
-  }
-
-  export function download(options?: DownloadOptions): void;
-  export function download(filename: string, options?: DownloadOptions): void;
-  export function download(arg1?: string | DownloadOptions, arg2?: DownloadOptions) {
-    const [filename, options] = isString(arg1)
-      ? [arg1, DownloadOptions.withDefaults(arg2)]
-      : ["data", DownloadOptions.withDefaults(arg1)];
-    const validity = !options.validate || validate();
-    if (validity !== true) {
-      throw new ValidationError(validity)
-    }
-    const url = getUrl(options.transform);
-    const anchor = document.createElementNS('http://www.w3.org/1999/xhtml', 'a') as HTMLAnchorElement;
-    anchor.href = url;
-    anchor.setAttribute("download", `${filename}.json`);
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
-    URL.revokeObjectURL(url);
   }
 </script>
 
@@ -118,19 +73,9 @@
   {:catch error}
     <div class="error">ERROR: {error.message}</div>
   {/await}
-
-  {#if $$slots.default}
-    <div class="actions">
-      <slot {actions} />
-    </div>
-  {/if}
 </form>
 
 <style>
-  .jsonschema-form .actions {
-    margin: 12px 0;
-  }
-
   .jsonschema-form :global(.jsonschema-form-controls),
   .jsonschema-form :global(.control-anyof > .smui-paper__title) {
     display: flex;
