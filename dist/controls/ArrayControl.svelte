@@ -11,7 +11,6 @@ export let prefixItems = void 0;
 export let items = void 0;
 export let additionalItems = void 0;
 export let minItems = 0;
-export let maxItems = Infinity;
 let open = true;
 const hasItems = (data?.length ?? 0) > 0;
 let prefixed = [];

@@ -5,7 +5,6 @@ declare const __propDef: {
         data?: number | undefined;
         title?: string | undefined;
         description?: string | undefined;
-        format?: string | undefined;
         isRequired?: boolean | undefined;
         minimum?: number | undefined;
         maximum?: number | undefined;

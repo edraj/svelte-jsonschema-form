@@ -2,7 +2,6 @@
 export let data = $$props.default;
 export let title = void 0;
 export let description = void 0;
-export let format = void 0;
 export let isRequired = void 0;
 export let minimum = void 0;
 export let maximum = void 0;

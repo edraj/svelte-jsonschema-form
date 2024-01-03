@@ -17,7 +17,7 @@
 
   // Validation Settings
   export let minItems: number = 0;
-  export let maxItems: number = Infinity;
+  // export let maxItems: number = Infinity;
   // TODO: implement additional validation settings
   // export let uniqueItems: boolean = false;
   // export let contains: JSONSchema7 | undefined = undefined;

@@ -12,7 +12,6 @@ declare const __propDef: {
         items?: JSONSchema7 | JSONSchema7[] | undefined;
         additionalItems?: JSONSchema7 | undefined;
         minItems?: number | undefined;
-        maxItems?: number | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

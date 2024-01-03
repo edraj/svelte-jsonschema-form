@@ -4,7 +4,6 @@
   export let data: number | undefined = $$props.default;
   export let title: string | undefined = undefined;
   export let description: string | undefined = undefined;
-  export let format: string | undefined = undefined;
   export let isRequired: boolean | undefined = undefined;
   export let minimum: number | undefined = undefined;
   export let maximum: number | undefined = undefined;
