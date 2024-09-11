@@ -1,5 +1,4 @@
 <script lang="ts">
-  // import "../theme/_custom.scss"
   import { tick } from 'svelte';
   import SchemaForm, { type ValidationError } from "$lib";
   import schemas, { type TestSchema } from "../schemas";
@@ -87,7 +86,7 @@
     {/each}
   </TabContent>
   <SchemaForm {schema} {uischema} bind:data bind:this={schemaForm} ref={null}>
-    <Button color="primary" on:click={download} type="button" variant="raised">
+    <Button color="primary" on:click={download} type="button">
       Download
     </Button>
   </SchemaForm>

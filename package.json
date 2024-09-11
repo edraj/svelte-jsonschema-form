@@ -16,7 +16,7 @@
 		"package": "svelte-kit sync && svelte-package && publint",
 		"prepublishOnly": "npm run package",
 		"test": "playwright test",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-check --no-tsconfig",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
 		"prepare": "npm run build"
@@ -47,7 +47,7 @@
 		"svelte": "^4.2.19",
 		"svelte-check": "^4.0.1",
 		"tslib": "^2.7.0",
-		"typescript": "^5.6.2",
+		"typescript": "^5.5.4",
 		"svelte-preprocess": "^6.0.2",
 		"@sveltejs/vite-plugin-svelte": "^3.1.2",
 		"vite": "^5.4.4",
@@ -56,6 +56,9 @@
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
+	"peerDependencies": {
+		"svelte" : "^4.2.19"
+	},
 	"dependencies": {
 		"@json-schema-tools/dereferencer": "^1.6.1",
 		"ajv": "^8.12.0",

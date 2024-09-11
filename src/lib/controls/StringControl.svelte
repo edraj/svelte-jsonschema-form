@@ -18,7 +18,7 @@
   $: updateValue(data);
   $: enumValues = $$props.enum;
 
-  function formatCasting(){
+  function formatCasting(): any{
       switch (format) {
           case 'date-time': return "datetime-local";
           default: return format;
@@ -60,8 +60,8 @@
       label={title}
       type={formatCasting()}
       bind:value
-      {minLength}
-      {maxLength}
+      minlength={minLength}
+      maxlength={maxLength}
       {pattern}
       required={isRequired}
     >
