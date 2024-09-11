@@ -32,7 +32,7 @@ function updateValue(val) {
     <Label>{title}</Label>
   {/if}
   {#if enumValues?.length}
-    <Input  feedback={description ? description : ""} type="select"  variant="outlined" bind:value label={title} required={isRequired} menu$portal>
+    <Input feedback={description ? description : ""} type="select" variant="outlined" bind:value label={title} required={isRequired} menu$portal>
       {#if !force}
         <option value={NaN}/>
       {/if}
