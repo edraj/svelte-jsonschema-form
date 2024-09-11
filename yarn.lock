@@ -1242,7 +1242,7 @@ svelte@^4.2.19:
 
 sveltestrap@edraj/sveltestrap#extending-UI-2:
   version "6.2.7"
-  resolved "https://codeload.github.com/edraj/sveltestrap/tar.gz/6ab36faa727c338011b513767b5c1d486ef567de"
+  resolved "https://codeload.github.com/edraj/sveltestrap/tar.gz/7dfca3605a3fdd41f6977f2e1c6eeabc853670c3"
   dependencies:
     "@popperjs/core" "^2.11.8"
 

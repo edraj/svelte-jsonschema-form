@@ -157,7 +157,7 @@
 <Accordion class="jsonschema-form-control control-array mb-3">
   <AccordionItem
     header={title ?? ""}
-    {extraSuffix}
+    extraSuffix={extraSuffix}
     extraPrefix={hasRequired ? extraPrefix : null}
     class={hasRequired ? "has-required" : undefined}
   >
