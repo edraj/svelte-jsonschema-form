@@ -1,40 +1,35 @@
-<script>import { Input, Label } from "sveltestrap";
+<script>import { Input, Label } from 'sveltestrap';
 export let data = $$props.default;
-export let title = void 0;
-export let description = void 0;
-export let format = void 0;
-export let minLength = void 0;
-export let maxLength = void 0;
-export let pattern = void 0;
-export let isRequired = void 0;
+export let title = undefined;
+export let description = undefined;
+export let format = undefined;
+export let minLength = undefined;
+export let maxLength = undefined;
+export let pattern = undefined;
+export let isRequired = undefined;
 export let force = false;
 let value = data ?? "";
-let enumValues = void 0;
-$:
-  updateData(value);
-$:
-  updateValue(data);
-$:
-  enumValues = $$props.enum;
+let enumValues = undefined;
+$: updateData(value);
+$: updateValue(data);
+$: enumValues = $$props.enum;
 function formatCasting() {
-  switch (format) {
-    case "date-time":
-      return "datetime-local";
-    default:
-      return format;
-  }
+    switch (format) {
+        case 'date-time': return "datetime-local";
+        default: return format;
+    }
 }
 function updateData(val) {
-  const setData = !!val || force ? val : void 0;
-  if (data !== setData) {
-    data = setData;
-  }
+    const setData = (!!val || force) ? val : undefined;
+    if (data !== setData) {
+        data = setData;
+    }
 }
 function updateValue(val) {
-  const setValue = val ?? "";
-  if (value !== setValue) {
-    value = setValue;
-  }
+    const setValue = val ?? "";
+    if (value !== setValue) {
+        value = setValue;
+    }
 }
 </script>
 

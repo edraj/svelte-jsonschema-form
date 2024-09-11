@@ -4,12 +4,12 @@ import UISchema from "./UISchema";
 declare const __propDef: {
     props: {
         ref: any;
-        schema?: JSONSchema7 | undefined;
+        schema?: JSONSchema7;
         data?: {
             [prop: string]: any;
-        } | undefined;
-        uischema?: UISchema | undefined;
-        validate?: (() => boolean | import("ajv").ErrorObject<string, Record<string, any>, unknown>[]) | undefined;
+        };
+        uischema?: UISchema;
+        validate?: () => boolean | import("ajv").ErrorObject<string, Record<string, any>, unknown>[];
     };
     events: {
         [evt: string]: CustomEvent<any>;

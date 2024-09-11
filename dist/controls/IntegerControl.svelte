@@ -1,30 +1,28 @@
 <script>import { Input, Label } from "sveltestrap";
 export let data = $$props.default;
-export let title = void 0;
-export let description = void 0;
-export let isRequired = void 0;
-export let minimum = void 0;
-export let maximum = void 0;
+export let title = undefined;
+export let description = undefined;
+export let isRequired = undefined;
+export let minimum = undefined;
+export let maximum = undefined;
+// export let multipleOf: number | undefined = undefined;
 export let force = false;
 let value = data ?? NaN;
-let enumValues = void 0;
-$:
-  updateData(value);
-$:
-  updateValue(data);
-$:
-  enumValues = $$props.enum;
+let enumValues = undefined;
+$: updateData(value);
+$: updateValue(data);
+$: enumValues = $$props.enum;
 function updateData(val) {
-  const setData = Number.isNaN(val) ? force ? $$props.default ?? NaN : void 0 : val;
-  if (data !== setData) {
-    data = setData;
-  }
+    const setData = (Number.isNaN(val)) ? force ? ($$props.default ?? NaN) : undefined : val;
+    if (data !== setData) {
+        data = setData;
+    }
 }
 function updateValue(val) {
-  const setValue = val ?? NaN;
-  if (value !== setValue) {
-    value = setValue;
-  }
+    const setValue = val ?? NaN;
+    if (value !== setValue) {
+        value = setValue;
+    }
 }
 </script>
 

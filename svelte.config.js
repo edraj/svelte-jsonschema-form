@@ -1,6 +1,6 @@
 import adapterAuto from '@sveltejs/adapter-auto';
 import adapterStatic from '@sveltejs/adapter-static';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import preprocess from "svelte-preprocess";
 
 const { npm_config_static, BASE_PATH } = process.env;
 const isDev = process.argv.includes('dev');
@@ -9,7 +9,7 @@ const isDev = process.argv.includes('dev');
 const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
-	preprocess: vitePreprocess(),
+	preprocess: preprocess(),
 
 	kit: {
 		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.

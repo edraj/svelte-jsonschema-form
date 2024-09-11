@@ -7,7 +7,7 @@ declare const __propDef: {
         data?: any[] | undefined;
         uischema?: UISchema | undefined;
         title?: string | undefined;
-        description?: string | null | undefined;
+        description?: (string | null) | undefined;
         prefixItems?: JSONSchema7[] | undefined;
         items?: JSONSchema7 | JSONSchema7[] | undefined;
         additionalItems?: JSONSchema7 | undefined;

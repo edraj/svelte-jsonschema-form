@@ -25,6 +25,23 @@ export type TestSchema = {
     data: { [prop: string]: any };
 };
 
+const sampleNumber = {
+    "type": "object",
+    "title": "title",
+    "description": "",
+    "properties": {
+        "nu": {
+            "type": "number",
+            "title": "nu",
+            "description": ""
+        },
+        "in": {
+            "type": "integer",
+            "title": "in",
+            "description": ""
+        }
+    }
+}
 
 const datesData = {
     "type": "object",
@@ -525,6 +542,9 @@ const nestedArrayData = {
 }
 
 export default [
+    {
+        name: "number", schema: sampleNumber as JSONSchema7, data: {}
+    },
     {
         name: "dates", schema: datesData as JSONSchema7, data: {}
     },

@@ -5,8 +5,8 @@ declare const __propDef: {
     props: {
         schema: JSONSchema7 | null;
         data?: any;
-        uischema?: UISchema | undefined;
-        force?: boolean | undefined;
+        uischema?: UISchema;
+        force?: boolean;
     };
     events: {
         [evt: string]: CustomEvent<any>;

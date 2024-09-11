@@ -1,24 +1,22 @@
 <script>import { FormGroup, Input } from "sveltestrap";
 export let data = $$props.default;
-export let title = void 0;
-export let description = void 0;
+export let title = undefined;
+export let description = undefined;
 export let force = false;
 let checked = data ?? false;
-$:
-  updateData(checked);
-$:
-  updateChecked(data);
+$: updateData(checked);
+$: updateChecked(data);
 function updateData(val) {
-  const setData = data != null || val || force ? val : void 0;
-  if (data !== setData) {
-    data = setData;
-  }
+    const setData = ((data != null) || val || force) ? val : undefined;
+    if (data !== setData) {
+        data = setData;
+    }
 }
 function updateChecked(val) {
-  const setValue = val ?? $$props.default ?? false;
-  if (checked !== setValue) {
-    checked = setValue;
-  }
+    const setValue = val ?? $$props.default ?? false;
+    if (checked !== setValue) {
+        checked = setValue;
+    }
 }
 </script>
 

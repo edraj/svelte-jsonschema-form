@@ -7,11 +7,11 @@ declare const __propDef: {
             [prop: string]: any;
         } | undefined;
         title?: string | undefined;
-        uischema?: UISchema | undefined;
+        uischema?: UISchema;
         properties?: {
             [prop: string]: any;
         } | undefined;
-        required?: string[] | undefined;
+        required?: string[];
         anyOf?: JSONSchema7Definition[] | undefined;
     };
     events: {

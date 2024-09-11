@@ -1,64 +1,63 @@
 <script>import deepEquals from "fast-deep-equal";
-import { tick } from "svelte";
+import { tick } from 'svelte';
 import { isObjectSchema, omit } from "../utilities";
-import { Card, Input, Label } from "sveltestrap";
+import { Card, Input, Label } from 'sveltestrap';
 import Control from "../Control.svelte";
 import ObjectProps from "./ObjectProps.svelte";
-export let type = void 0;
+export let type = undefined;
 export let data;
-export let title = void 0;
+export let title = undefined;
 export let uischema = {};
 export let anyOf = [];
-export let isRequired = void 0;
+export let isRequired = undefined;
 export let force = false;
-const keys = /* @__PURE__ */ new WeakMap();
+const keys = new WeakMap();
 let schemas = [];
 let selected = null;
 let selectedProps = [];
-$:
-  typeSchema = { type: selected?.type ?? type };
-$:
-  updateSchemas(anyOf);
-$:
-  resetSelected(schemas);
-$:
-  resetData(selected);
+$: typeSchema = { type: selected?.type ?? type };
+$: updateSchemas(anyOf);
+$: resetSelected(schemas);
+$: resetData(selected);
 function getKey(schema) {
-  return keys.get(schema) ?? "";
+    return keys.get(schema) ?? "";
 }
-function updateSchemas(anyOf2) {
-  const filtered = anyOf2.filter((schema) => schema !== true && schema !== false);
-  if (!deepEquals(schemas, filtered)) {
-    schemas = filtered;
-    const timestamp = Date.now();
-    schemas.forEach((schema, index) => {
-      if (!keys.has(schema)) {
-        keys.set(schema, `${timestamp}#${index}`);
-      }
-    });
-  }
-}
-function resetSelected(schemas2) {
-  if (selected == null ? force : !schemas2.includes(selected)) {
-    selected = force ? schemas2[0] : null;
-  }
-}
-async function resetData(selected2) {
-  await tick();
-  const isObj = isObjectSchema(typeSchema);
-  if (data != null) {
-    if (selectedProps) {
-      const omitted = omit(data, selectedProps);
-      if (Object.keys(data).length != Object.keys(omitted).length) {
-        data = omitted;
-      }
-    } else {
-      data = void 0;
+function updateSchemas(anyOf) {
+    const filtered = anyOf.filter(schema => (schema !== true) && (schema !== false));
+    if (!deepEquals(schemas, filtered)) {
+        schemas = filtered;
+        const timestamp = Date.now();
+        schemas.forEach((schema, index) => {
+            if (!keys.has(schema)) {
+                keys.set(schema, `${timestamp}#${index}`);
+            }
+        });
     }
-  } else if (isObj && force) {
-    data = {};
-  }
-  selectedProps = isObj ? Object.keys(selected2?.properties ?? {}) : void 0;
+}
+function resetSelected(schemas) {
+    if ((selected == null) ? force : !schemas.includes(selected)) {
+        selected = force ? schemas[0] : null;
+    }
+}
+async function resetData(selected) {
+    await tick();
+    const isObj = isObjectSchema(typeSchema);
+    if (data != null) {
+        if (selectedProps) {
+            const omitted = omit(data, selectedProps);
+            // make sure it's changed (to prevent infinite loop)
+            if (Object.keys(data).length != Object.keys(omitted).length) {
+                data = omitted;
+            }
+        }
+        else {
+            data = undefined;
+        }
+    }
+    else if (isObj && force) {
+        data = {};
+    }
+    selectedProps = isObj ? Object.keys(selected?.properties ?? {}) : undefined;
 }
 </script>
 
