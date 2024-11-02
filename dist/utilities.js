@@ -39,6 +39,9 @@ export function isDefined(value) {
     return (value != null) || (value === null);
 }
 export function isEmpty(obj) {
+    if (!obj) {
+        return obj;
+    }
     return Object.entries(obj)
         .filter(([_, val]) => isDefined(val))
         .length === 0;

@@ -139,10 +139,6 @@
     }
   }
 
-  function stop() {
-    enabled = !enabled;
-  }
-
   const extraSuffix = {
     action: addItem,
     icon: "plus-square-fill",
@@ -157,7 +153,7 @@
     class={hasRequired ? "has-required" : undefined}
   >
     <h4>
-      <p>{description ?? ""}</p>
+      {description ?? ""}
     </h4>
 
     <ul class="control-array-items">
@@ -197,7 +193,6 @@
           {/each}
         {/if}
       </ul>
-
   </AccordionItem>
 </Accordion>
 

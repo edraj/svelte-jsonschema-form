@@ -23,7 +23,7 @@ function updateItems(properties, uischema) {
         });
 }
 function updateValues(data, ignoreEmpty) {
-    if (ignoreEmpty && (data == null) && ((values == null) || !isEmpty(values))) {
+    if ((data == null) && ((values == null) || !isEmpty(values))) {
         values = {};
     }
     else if (values != data) {

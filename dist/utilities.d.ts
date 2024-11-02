@@ -12,4 +12,6 @@ export declare function omit<T extends Record<any, any>, K extends keyof T>(obj:
 export declare function isDefined<T>(value: T | undefined): value is T;
 export declare function isEmpty(obj: {
     [key: string]: any;
-}): boolean;
+}): boolean | {
+    [key: string]: any;
+};

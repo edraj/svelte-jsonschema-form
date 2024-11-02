@@ -30,7 +30,7 @@
   }
 
   function updateValues(data: { [prop: string]: any } | undefined, ignoreEmpty: boolean) {
-    if (ignoreEmpty && (data == null) && ((values == null) || !isEmpty(values))) {
+    if ((data == null) && ((values == null) || !isEmpty(values))) {
       values = {};
     }
     else if (values != data) {
@@ -39,7 +39,7 @@
   }
 
   function updateData(values: { [prop: string]: any } | undefined) {
-    if (ignoreEmpty && (values != null) && isEmpty(values) && (data != null)) {
+      if (ignoreEmpty && (values != null) && isEmpty(values) && (data != null)) {
       data = undefined;
     }
     else {

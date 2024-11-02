@@ -218,73 +218,123 @@
     //     }
     // }
 
+    // const sample: any = {
+    //     "type": "object",
+    //     "title": "title",
+    //     "description": "",
+    //     "properties": {
+    //         "qwe": {
+    //             "type": "string",
+    //             "title": "QWE",
+    //             "description": ""
+    //         },
+    //         "asd": {
+    //             "type": "number",
+    //             "title": "ASD",
+    //             "description": ""
+    //         },
+    //         "zxc": {
+    //             "type": "integer",
+    //             "title": "ZXC",
+    //             "description": ""
+    //         },
+    //         "wer": {
+    //             "type": "boolean",
+    //             "title": "WER",
+    //             "description": ""
+    //         },
+    //         "ert": {
+    //             "type": "array",
+    //             "title": "ERT",
+    //             "description": "",
+    //             "items": {
+    //                 "type": "array",
+    //                 "title": "ERT items",
+    //                 "properties": {
+    //                     "qwe1": {
+    //                         "type": "string",
+    //                         "title": "QWE1",
+    //                         "description": ""
+    //                     },
+    //                     "asd1": {
+    //                         "type": "number",
+    //                         "title": "ASD1",
+    //                         "description": ""
+    //                     }
+    //                 },
+    //                 "type": "object"
+    //             },
+    //             "required": [
+    //                 "asd1",
+    //                 "qwe1"
+    //             ],
+    //             "properties": {
+    //                 "undefined": {
+    //                     "type": "number",
+    //                     "title": "ASD1",
+    //                     "description": ""
+    //                 }
+    //             },
+    //             "uniqueItems": false
+    //         }
+    //     },
+    //     "required": [
+    //         "ert",
+    //         "wer",
+    //         "zxc",
+    //         "asd",
+    //         "qwe"
+    //     ]
+    // }
+    //
+
     const sample: any = {
         "type": "object",
-        "title": "title",
+        "title": "Title",
         "description": "",
         "properties": {
-            "qwe": {
+            "subject": {
                 "type": "string",
-                "title": "QWE",
-                "description": ""
+                "title": "Subject",
+                "description": "Subject"
             },
-            "asd": {
-                "type": "number",
-                "title": "ASD",
-                "description": ""
+            "user": {
+                "type": "string",
+                "title": "User",
+                "description": "User"
             },
-            "zxc": {
-                "type": "integer",
-                "title": "ZXC",
-                "description": ""
-            },
-            "wer": {
+            "is_urgent": {
                 "type": "boolean",
-                "title": "WER",
-                "description": ""
+                "title": "is urgent",
+                "description": "is urgent"
             },
-            "ert": {
+            "incidents ": {
                 "type": "array",
-                "title": "ERT",
+                "title": "Incidents",
                 "description": "",
                 "items": {
-                    "type": "array",
-                    "title": "ERT items",
+                    "type": "object",
                     "properties": {
-                        "qwe1": {
-                            "type": "string",
-                            "title": "QWE1",
-                            "description": ""
-                        },
-                        "asd1": {
-                            "type": "number",
-                            "title": "ASD1",
-                            "description": ""
+                        "incident": {
+                            "type": "object",
+                            "title": "incident",
+                            "properties": {
+                                "cause": {
+                                    "type": "string",
+                                    "title": "Cause",
+                                    "description": ""
+                                },
+                                "doer": {
+                                    "type": "string",
+                                    "title": "Doer",
+                                    "description": ""
+                                }
+                            }
                         }
                     },
-                    "type": "object"
-                },
-                "required": [
-                    "asd1",
-                    "qwe1"
-                ],
-                "properties": {
-                    "undefined": {
-                        "type": "number",
-                        "title": "ASD1",
-                        "description": ""
-                    }
-                },
-                "uniqueItems": false
+                }
             }
-        },
-        "required": [
-            "ert",
-            "wer",
-            "zxc",
-            "asd",
-            "qwe"
-        ]
+        }
     }
     const data = {}
 </script>

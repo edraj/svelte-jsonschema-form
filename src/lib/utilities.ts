@@ -50,6 +50,9 @@ export function isDefined<T>(value: T | undefined): value is T {
 }
 
 export function isEmpty(obj: { [key: string]: any }) {
+  if(!obj){
+    return obj
+  }
   return Object.entries(obj)
     .filter(([_, val]) => isDefined(val))
     .length === 0;
