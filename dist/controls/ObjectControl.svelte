@@ -6,7 +6,7 @@ import ObjectProps from "./ObjectProps.svelte";
 export let data = undefined;
 export let uischema = {};
 export let title = undefined;
-// export let description: string | undefined = undefined;
+export let description = undefined;
 export let properties = undefined;
 export let required = [];
 export let anyOf = undefined;
@@ -38,13 +38,6 @@ function updateData(enabled) {
         data = shouldHaveData ? {} : undefined;
     }
 }
-function stop() {
-    enabled = !enabled;
-}
-const extraPrefix = {
-    action: stop,
-    value: enabled
-};
 </script>
 
 {#if justAnyOf}
@@ -54,7 +47,6 @@ const extraPrefix = {
     <AccordionItem
       class={hasRequired ? "no-disable" : undefined}
       header={(title ?? data?.title) ?? ""}
-      extraPrefix={!hasRequired ? extraPrefix : null}
       nonInteractive={!hasProps}
     >
         <ObjectProps {title} {properties} {required} {anyOf} bind:data {uischema} />

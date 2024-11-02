@@ -9,7 +9,7 @@
   export let data: { [prop: string]: any } | undefined = undefined;
   export let uischema: UISchema = {};
   export let title: string | undefined = undefined;
-  // export let description: string | undefined = undefined;
+  export let description: string | undefined = undefined;
   export let properties: { [prop: string]: any } | undefined = undefined;
   export let required: string[] = [];
   export let anyOf: JSONSchema7Definition[] | undefined = undefined;
@@ -49,13 +49,6 @@
     }
   }
 
-  function stop() {
-      enabled = !enabled;
-  }
-  const extraPrefix = {
-      action: stop,
-      value: enabled
-  };
 </script>
 
 {#if justAnyOf}
@@ -65,7 +58,6 @@
     <AccordionItem
       class={hasRequired ? "no-disable" : undefined}
       header={(title ?? data?.title) ?? ""}
-      extraPrefix={!hasRequired ? extraPrefix : null}
       nonInteractive={!hasProps}
     >
         <ObjectProps {title} {properties} {required} {anyOf} bind:data {uischema} />

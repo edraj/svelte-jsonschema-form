@@ -9,6 +9,7 @@ declare const __propDef: {
         } | undefined;
         uischema?: UISchema;
         title?: string | undefined;
+        description?: string | undefined;
         properties?: {
             [prop: string]: any;
         } | undefined;

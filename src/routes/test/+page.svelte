@@ -248,6 +248,8 @@
                 "title": "ERT",
                 "description": "",
                 "items": {
+                    "type": "array",
+                    "title": "ERT items",
                     "properties": {
                         "qwe1": {
                             "type": "string",

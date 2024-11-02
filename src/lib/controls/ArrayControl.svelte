@@ -147,10 +147,6 @@
     action: addItem,
     icon: "plus-square-fill",
   };
-  const extraPrefix = {
-    action: stop,
-    value: enabled,
-  };
 </script>
 
 
@@ -158,7 +154,6 @@
   <AccordionItem
     header={title ?? ""}
     extraSuffix={extraSuffix}
-    extraPrefix={hasRequired ? extraPrefix : null}
     class={hasRequired ? "has-required" : undefined}
   >
     <h4>
